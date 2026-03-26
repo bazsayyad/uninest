@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>UniNest - Resources</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <h1>UniNest</h1>
+    <div class="links">
+      <a href="index.html">Dashboard</a>
+      <a href="tasks.html">Tasks</a>
+      <a href="notes.html">Notes</a>
+      <a href="resources.html">Resources</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Add Resource</h2>
+    <input id="linkInput" placeholder="Paste study link">
+    <button onclick="addResource()">Add</button>
+  </div>
+
+  <div class="card">
+    <h2>Saved Resources</h2>
+    <ul id="resourceList"></ul>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

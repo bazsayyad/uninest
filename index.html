@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>UniNest - Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <h1>UniNest</h1>
+    <div class="links">
+      <a href="index.html">Dashboard</a>
+      <a href="tasks.html">Tasks</a>
+      <a href="notes.html">Notes</a>
+      <a href="resources.html">Resources</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Progress</h2>
+    <div class="progress-container">
+      <div id="progressBar"></div>
+    </div>
+    <p id="progressText"></p>
+  </div>
+
+  <div class="card">
+    <h2>Stress Level</h2>
+    <p id="stressMsg"></p>
+
+    <div class="help">
+      <strong>How this is calculated:</strong>
+      <ul>
+        <li>Based on number of unfinished tasks</li>
+        <li>More pending work → higher stress estimate</li>
+        <li>Completing tasks lowers stress level</li>
+      </ul>
+
+      <small>
+        ⚠ This is only a productivity indicator, not medical advice.
+        If you feel overwhelmed, consider talking to a professional.
+      </small>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
