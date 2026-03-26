@@ -19,6 +19,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const emptyMsg = document.getElementById("resourceEmptyMsg");
   const count = document.getElementById("resourceCount");
 
+  const detectType = (url) => {
+    const lower = url.toLowerCase();
+    if (lower.endsWith(".pdf")) return "PDF";
+    if (lower.includes("youtube.com") || lower.includes("youtu.be") || lower.includes("vimeo.com"))
+      return "Video";
+    if (lower.includes("drive.google.com") || lower.includes("docs.google.com"))
+      return "Document";
+    if (lower.includes("figma.com") || lower.includes("canva.com")) return "Design";
+    if (lower.includes(".mp4") || lower.includes(".mov")) return "Video";
+    if (lower.includes(".ppt") || lower.includes(".pptx")) return "Slides";
+    if (lower.includes(".doc") || lower.includes(".docx")) return "Document";
+    return "Link";
+  };
+
   const render = () => {
     const resources = getResources();
     list.innerHTML = "";
@@ -86,16 +100,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const title = titleInput.value.trim();
     const url = urlInput.value.trim();
     if (!title || !url) return;
+    const pickedType = typeSelect.value === "auto" ? detectType(url) : typeSelect.value;
     const resources = getResources();
     resources.push({
       id: Date.now(),
       title,
       url,
-      type: typeSelect.value,
+      type: pickedType,
     });
     saveResources(resources);
     titleInput.value = "";
     urlInput.value = "";
+    typeSelect.value = "auto";
     render();
   });
 

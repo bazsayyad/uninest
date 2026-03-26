@@ -20,7 +20,10 @@
         <a href="resources.html" data-nav="resources">Resources</a>
         <a href="about.html" data-nav="about">About</a>
       </div>
-      <button id="themeToggle">Light mode</button>
+      <div class="nav-actions">
+        <button id="exportData" class="ghost">Export data</button>
+        <button id="themeToggle">Light mode</button>
+      </div>
     </nav>
 
     <main class="content">
@@ -44,9 +47,10 @@
             <label for="resourceTitle">Title</label>
             <input id="resourceTitle" type="text" placeholder="e.g., Organic Chem cheat sheet" required>
             <label for="resourceUrl">URL</label>
-            <input id="resourceUrl" type="url" placeholder="https://example.com/file.pdf" required>
+            <input id="resourceUrl" type="url" placeholder="https://example.com/your-link" required>
             <div class="space-between">
               <select id="resourceType">
+                <option value="auto">Auto-detect type</option>
                 <option value="PDF">PDF</option>
                 <option value="Video">Video</option>
                 <option value="Article">Article</option>
@@ -55,7 +59,7 @@
               </select>
               <button type="submit">Save link</button>
             </div>
-          </form>
+            </form>
         </section>
 
         <section class="card">

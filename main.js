@@ -107,6 +107,47 @@
     }
   };
 
+  // Lightweight click sound using Web Audio API
+  let clickSoundCtx = null;
+  let clickSoundBound = false;
+  const playClick = () => {
+    try {
+      clickSoundCtx =
+        clickSoundCtx || new (window.AudioContext || window.webkitAudioContext)();
+      if (clickSoundCtx.state === "suspended") clickSoundCtx.resume();
+      const osc = clickSoundCtx.createOscillator();
+      const gain = clickSoundCtx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(440, clickSoundCtx.currentTime);
+      gain.gain.setValueAtTime(0.08, clickSoundCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        clickSoundCtx.currentTime + 0.08
+      );
+      osc.connect(gain).connect(clickSoundCtx.destination);
+      osc.start();
+      osc.stop(clickSoundCtx.currentTime + 0.1);
+    } catch (e) {
+      // ignore audio errors silently to keep UX smooth
+    }
+  };
+
+  const initClickSound = () => {
+    if (clickSoundBound) return;
+    clickSoundBound = true;
+    const clickableTags = ["BUTTON", "A", "INPUT", "SELECT", "TEXTAREA"];
+    document.addEventListener(
+      "click",
+      (e) => {
+        const tag = e.target.tagName;
+        if (clickableTags.includes(tag)) {
+          playClick();
+        }
+      },
+      { capture: true }
+    );
+  };
+
   // Cursor glow follower
   const initCursorGlow = () => {
     // Cursor glow removed per feedback; clean up any existing element
@@ -124,10 +165,76 @@
     });
   };
 
+  const exportAllData = () => {
+    const payload = {
+      exportedAt: new Date().toISOString(),
+      theme: document.body.dataset.theme,
+      tasks: getTasks(),
+      notes: getNotes(),
+      resources: getResources(),
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {
+      type: "application/json",
+    });
+    const stamp = new Date()
+      .toISOString()
+      .replace(/[:T]/g, "-")
+      .split(".")[0];
+    const filename = `uninest-backup-${stamp}.json`;
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const initExport = () => {
+    const btn = document.getElementById("exportData");
+    if (!btn || btn.dataset.bound === "true") return;
+    btn.dataset.bound = "true";
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      exportAllData();
+    });
+  };
+
+  let transitionsBound = false;
+  const initPageTransitions = () => {
+    if (transitionsBound) return;
+    transitionsBound = true;
+    const links = document.querySelectorAll(".nav-links a[data-nav]");
+    links.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const href = link.getAttribute("href");
+        if (
+          !href ||
+          link.dataset.nav === document.body.dataset.page ||
+          link.target === "_blank" ||
+          e.metaKey ||
+          e.ctrlKey
+        ) {
+          return;
+        }
+        e.preventDefault();
+        document.body.classList.add("is-leaving");
+        setTimeout(() => {
+          window.location.href = href;
+        }, 160);
+      });
+    });
+    window.addEventListener("pageshow", () => {
+      document.body.classList.remove("is-leaving");
+    });
+  };
+
   // Gentle page fade when navigating between tabs/pages
   document.addEventListener("DOMContentLoaded", () => {
     // Defer to next frame so the initial render is ready before revealing
     requestAnimationFrame(() => document.body.classList.add("is-loaded"));
+    initPageTransitions();
+    initExport();
+    initClickSound();
   });
 
   // Expose globally for page scripts.
@@ -145,5 +252,8 @@
     getResources,
     saveResources,
     formatDate,
+    initExport,
+    initPageTransitions,
+    initClickSound,
   };
 })();
