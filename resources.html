@@ -1,40 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>UniNest - Resources</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniNest | Resources</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+<body data-page="resources" data-theme="dark">
+  <div class="page">
+    <nav class="topnav">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span>UniNest</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" data-nav="dashboard">Dashboard</a>
+        <a href="tasks.html" data-nav="tasks">Tasks</a>
+        <a href="notes.html" data-nav="notes">Notes</a>
+        <a href="resources.html" data-nav="resources">Resources</a>
+        <a href="about.html" data-nav="about">About</a>
+      </div>
+      <button id="themeToggle">Light mode</button>
+    </nav>
 
-<body>
+    <main class="content">
+      <section class="card">
+        <div class="space-between">
+          <div>
+            <h2>Resources</h2>
+            <p class="muted">Save your go-to PDFs, videos, and sites. Links stay private on this device.</p>
+          </div>
+          <span class="pill" id="resourceCount">0 saved</span>
+        </div>
+      </section>
 
-<nav>
-  <div class="nav-inner">
-    <h1>UniNest</h1>
-    <div class="links">
-      <a href="index.html">Dashboard</a>
-      <a href="tasks.html">Tasks</a>
-      <a href="notes.html">Notes</a>
-      <a href="resources.html">Resources</a>
-    </div>
+      <div class="grid-2">
+        <section class="card">
+          <div class="space-between">
+            <h2>Add link</h2>
+            <span class="muted">Paste URL, add a label.</span>
+          </div>
+          <form id="resourceForm">
+            <label for="resourceTitle">Title</label>
+            <input id="resourceTitle" type="text" placeholder="e.g., Organic Chem cheat sheet" required>
+            <label for="resourceUrl">URL</label>
+            <input id="resourceUrl" type="url" placeholder="https://example.com/file.pdf" required>
+            <div class="space-between">
+              <select id="resourceType">
+                <option value="PDF">PDF</option>
+                <option value="Video">Video</option>
+                <option value="Article">Article</option>
+                <option value="Tool">Tool</option>
+                <option value="Other">Other</option>
+              </select>
+              <button type="submit">Save link</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="card">
+          <h2>Why this matters</h2>
+          <ul class="muted" style="padding-left:18px; line-height:1.6;">
+            <li>Keep all study links in one place.</li>
+            <li>Works offline—links load when you’re back online.</li>
+            <li>Use titles you recognize at a glance.</li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="card">
+        <div class="space-between">
+          <h2>Saved links</h2>
+          <span class="muted">Newest first.</span>
+        </div>
+        <div id="resourceList" class="list"></div>
+        <p id="resourceEmptyMsg" class="empty">No links saved. Add one above.</p>
+      </section>
+    </main>
   </div>
-</nav>
 
-<div class="container">
-
-  <div class="card">
-    <h2>Add Resource</h2>
-    <input id="linkInput" placeholder="Paste study link">
-    <button onclick="addResource()">Add</button>
-  </div>
-
-  <div class="card">
-    <h2>Saved Resources</h2>
-    <ul id="resourceList"></ul>
-  </div>
-
-</div>
-
-<script src="script.js"></script>
+  <script src="main.js"></script>
+  <script src="resources.js"></script>
 </body>
 </html>

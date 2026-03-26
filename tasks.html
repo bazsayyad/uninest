@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniNest | Tasks</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="tasks" data-theme="dark">
+  <div class="page">
+    <nav class="topnav">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span>UniNest</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" data-nav="dashboard">Dashboard</a>
+        <a href="tasks.html" data-nav="tasks">Tasks</a>
+        <a href="notes.html" data-nav="notes">Notes</a>
+        <a href="resources.html" data-nav="resources">Resources</a>
+        <a href="about.html" data-nav="about">About</a>
+      </div>
+      <button id="themeToggle">Light mode</button>
+    </nav>
+
+    <main class="content">
+      <section class="card">
+        <div class="space-between">
+          <div>
+            <h2>Tasks</h2>
+            <p class="muted">Capture, prioritize, and mark complete. Data stays on this device.</p>
+          </div>
+          <span class="pill" id="taskSummary">0 tasks</span>
+        </div>
+      </section>
+
+      <div class="grid-2">
+        <section class="card">
+          <div class="space-between">
+            <h2>Add task</h2>
+            <span class="muted">Keep it short and clear.</span>
+          </div>
+          <form id="taskForm">
+            <label for="taskTitle">Task</label>
+            <input id="taskTitle" type="text" placeholder="e.g., Finish lab report" required>
+            <div class="space-between">
+              <select id="taskPriority">
+                <option value="normal">Priority: Normal</option>
+                <option value="high">Priority: High</option>
+                <option value="low">Priority: Low</option>
+              </select>
+              <button type="submit">Save task</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="card">
+          <div class="space-between">
+            <h2>Stats</h2>
+            <span class="pill" id="taskPendingPill">0 pending</span>
+          </div>
+          <div class="muted" id="taskStats">No tasks yet.</div>
+          <div style="margin-top:12px;" class="space-between">
+            <button class="ghost" id="clearCompleted">Clear completed</button>
+            <button class="ghost" id="clearAll">Clear all</button>
+          </div>
+        </section>
+      </div>
+
+      <section class="card">
+        <div class="space-between">
+          <h2>Task list</h2>
+          <span class="muted">Click checkbox to mark done.</span>
+        </div>
+        <div id="taskList" class="list"></div>
+        <p id="taskEmpty" class="empty">No tasks yet. Add one above.</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="tasks.js"></script>
+</body>
+</html>

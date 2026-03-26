@@ -1,56 +1,142 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>UniNest - Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniNest | Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+<body data-page="dashboard" data-theme="dark">
+  <div class="page">
+    <nav class="topnav">
+      <div class="brand">
+        <span class="brand-dot"></span>
+        <span>UniNest</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" data-nav="dashboard">Dashboard</a>
+        <a href="tasks.html" data-nav="tasks">Tasks</a>
+        <a href="notes.html" data-nav="notes">Notes</a>
+        <a href="resources.html" data-nav="resources">Resources</a>
+        <a href="about.html" data-nav="about">About</a>
+      </div>
+      <button id="themeToggle">Light mode</button>
+    </nav>
 
-<body>
+    <main class="content">
+      <section class="card">
+        <div class="space-between">
+          <div>
+            <h2>Welcome back</h2>
+            <p class="muted">Quick snapshot of your study life. Everything stays offline on your device.</p>
+          </div>
+          <span class="pill">Portable • LocalStorage</span>
+        </div>
+      </section>
 
-<nav>
-  <div class="nav-inner">
-    <h1>UniNest</h1>
-    <div class="links">
-      <a href="index.html">Dashboard</a>
-      <a href="tasks.html">Tasks</a>
-      <a href="notes.html">Notes</a>
-      <a href="resources.html">Resources</a>
-    </div>
+      <div class="grid-2">
+        <section class="card" id="progressCard">
+          <div class="space-between">
+            <h2>Progress</h2>
+            <span id="progressBadge" class="badge badge-low">0% done</span>
+          </div>
+          <p class="muted">Based on tasks you’ve added. Mark tasks done to fill the bar.</p>
+          <div class="progress-shell">
+            <div id="progressBar" class="progress-bar"></div>
+          </div>
+          <div class="space-between" style="margin-top:10px;">
+            <span id="progressCount" class="muted">0 of 0 tasks done</span>
+            <span id="pendingCount" class="muted">0 pending</span>
+          </div>
+        </section>
+
+        <section class="card" id="stressCard">
+          <div class="space-between">
+            <h2>Stress check</h2>
+            <span id="stressBadge" class="badge badge-low">Low</span>
+          </div>
+          <p class="muted">Estimated from unfinished tasks. More pending work → higher stress.</p>
+          <p id="stressMessage" class="muted">On top of things. Keep cruising.</p>
+          <p class="footer-note">Heads‑up: This is just a workload hint, not medical advice or a diagnostic tool.</p>
+        </section>
+      </div>
+
+      <div class="grid-2">
+        <section class="card">
+          <div class="space-between">
+            <h2>Quick add task</h2>
+            <span class="muted">Fast capture for today’s work.</span>
+          </div>
+          <form id="quickTaskForm">
+            <input type="text" id="quickTaskInput" placeholder="e.g., Revise Chapter 3" required>
+            <div class="space-between">
+              <select id="quickTaskPriority">
+                <option value="normal">Priority: Normal</option>
+                <option value="high">Priority: High</option>
+                <option value="low">Priority: Low</option>
+              </select>
+              <button type="submit">Add</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="card">
+          <div class="space-between">
+            <h2>Saved resources</h2>
+            <a class="link" href="resources.html">Open resources</a>
+          </div>
+          <div id="resourcePeek" class="list"></div>
+          <p id="resourceEmpty" class="empty">No links yet. Add your go‑to PDFs, videos, or sites.</p>
+        </section>
+      </div>
+
+      <div class="grid-2">
+        <section class="card">
+          <div class="space-between">
+            <h2>Pomodoro</h2>
+            <span class="pill-contrast" id="pomoMode">Focus 25 • Break 5</span>
+          </div>
+          <div class="pomodoro-time" id="pomoTime">25:00</div>
+          <p class="muted" id="pomoStatus">Ready to start a focus session.</p>
+          <div class="pomodoro-controls">
+            <button id="pomoStart" type="button">Start</button>
+            <button class="ghost" id="pomoReset" type="button">Reset</button>
+            <select id="pomoPreset">
+              <option value="25">Focus 25 / Break 5</option>
+              <option value="50">Focus 50 / Break 10</option>
+              <option value="15">Focus 15 / Break 3</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="space-between">
+            <h2>Calendar</h2>
+            <span class="pill-contrast" id="calendarDate">--</span>
+          </div>
+          <div class="space-between">
+            <div>
+              <div class="muted">Today</div>
+              <div class="task-title" id="calendarToday">--</div>
+            </div>
+            <div class="muted" id="calendarTime">--:--</div>
+          </div>
+          <div class="calendar-grid" id="calendarGrid"></div>
+        </section>
+      </div>
+
+      <section class="card">
+        <div class="space-between">
+          <h2>Progress graph</h2>
+          <span class="muted">Completed tasks over last 7 days.</span>
+        </div>
+        <div class="spark-bars" id="progressBars"></div>
+        <div class="spark-labels" id="progressLabels"></div>
+      </section>
+    </main>
   </div>
-</nav>
 
-<div class="container">
-
-  <div class="card">
-    <h2>Progress</h2>
-    <div class="progress-container">
-      <div id="progressBar"></div>
-    </div>
-    <p id="progressText"></p>
-  </div>
-
-  <div class="card">
-    <h2>Stress Level</h2>
-    <p id="stressMsg"></p>
-
-    <div class="help">
-      <strong>How this is calculated:</strong>
-      <ul>
-        <li>Based on number of unfinished tasks</li>
-        <li>More pending work → higher stress estimate</li>
-        <li>Completing tasks lowers stress level</li>
-      </ul>
-
-      <small>
-        ⚠ This is only a productivity indicator, not medical advice.
-        If you feel overwhelmed, consider talking to a professional.
-      </small>
-    </div>
-  </div>
-
-</div>
-
-<script src="script.js"></script>
+  <script src="main.js"></script>
+  <script src="dashboard.js"></script>
 </body>
 </html>
