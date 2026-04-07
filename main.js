@@ -91,6 +91,7 @@
     document.body.dataset.theme = theme;
     write(THEME_KEY, theme);
     setGlowStyle(theme);
+    setLogoForTheme(theme);
   };
 
   const initTheme = () => {
@@ -104,6 +105,15 @@
         applyTheme(next);
         toggle.textContent = next === "dark" ? "Light mode" : "Dark mode";
       });
+    }
+  };
+
+  const setLogoForTheme = (theme) => {
+    const logo = document.getElementById("brandLogo");
+    if (!logo) return;
+    const target = theme === "dark" ? logo.dataset.light : logo.dataset.dark;
+    if (target && logo.src !== target) {
+      logo.src = target;
     }
   };
 
@@ -228,6 +238,40 @@
     });
   };
 
+  const initMailActions = () => {
+    document.querySelectorAll("[data-mailto]").forEach((el) => {
+      const target = el.getAttribute("data-mailto") || el.getAttribute("href");
+      if (!target) return;
+      el.addEventListener("click", (e) => {
+        // allow middle/ctrl clicks to open in new tab normally
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0)
+          return;
+        e.preventDefault();
+        window.location.href = target;
+      });
+    });
+  };
+
+  const initCopyActions = () => {
+    document.querySelectorAll(".copy-mail[data-copy]").forEach((btn) => {
+      btn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const text = btn.dataset.copy;
+        if (!text) return;
+        try {
+          await navigator.clipboard.writeText(text);
+          const original = btn.textContent;
+          btn.textContent = "Copied";
+          setTimeout(() => {
+            btn.textContent = original;
+          }, 1400);
+        } catch (err) {
+          console.warn("Copy failed", err);
+        }
+      });
+    });
+  };
+
   // Gentle page fade when navigating between tabs/pages
   document.addEventListener("DOMContentLoaded", () => {
     // Defer to next frame so the initial render is ready before revealing
@@ -235,6 +279,8 @@
     initPageTransitions();
     initExport();
     initClickSound();
+    initMailActions();
+    initCopyActions();
   });
 
   // Expose globally for page scripts.
@@ -255,5 +301,8 @@
     initExport,
     initPageTransitions,
     initClickSound,
+    setLogoForTheme,
+    initMailActions,
+    initCopyActions,
   };
 })();

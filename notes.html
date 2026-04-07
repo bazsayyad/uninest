@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniNest | Notes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body data-page="notes" data-theme="dark">
+  <div class="page">
+    <nav class="topnav">
+      <div class="brand">
+        <img id="brandLogo" class="brand-logo" src="assets/logo-dark.jpeg" data-dark="assets/logo-dark.jpeg" data-light="assets/logo-light.jpeg" alt="UniNest logo">
+        <span>UniNest</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" data-nav="dashboard">Dashboard</a>
+        <a href="tasks.html" data-nav="tasks">Tasks</a>
+        <a href="notes.html" data-nav="notes">Notes</a>
+        <a href="resources.html" data-nav="resources">Resources</a>
+        <a href="about.html" data-nav="about">About</a>
+      </div>
+      <div class="nav-actions">
+        <button id="exportData" class="ghost">Export data</button>
+        <button id="themeToggle">Light mode</button>
+      </div>
+    </nav>
+
+    <main class="content">
+      <section class="card">
+        <div class="space-between">
+          <div>
+            <h2>Notes</h2>
+            <p class="muted">Quick, offline note-taker. Works without internet; stored via LocalStorage.</p>
+          </div>
+          <span class="pill" id="notesCount">0 notes</span>
+        </div>
+      </section>
+
+      <div class="grid-2">
+        <section class="card">
+          <div class="space-between">
+            <h2>New note</h2>
+            <span class="muted">Title + details, then save.</span>
+          </div>
+          <form id="noteForm">
+            <label for="noteTitle">Title</label>
+            <input id="noteTitle" type="text" placeholder="e.g., Thermodynamics summary" required>
+            <label for="noteBody">Content</label>
+            <textarea id="noteBody" placeholder="Write here..." required></textarea>
+            <button type="submit">Save note</button>
+          </form>
+        </section>
+
+        <section class="card">
+          <h2>Tips</h2>
+          <ul class="muted" style="padding-left:18px; line-height:1.6;">
+            <li>Everything saves locally—no cloud, no accounts.</li>
+            <li>Use short titles to spot notes faster.</li>
+            <li>Pair notes with tasks on the Tasks page.</li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="card">
+        <div class="space-between">
+          <h2>Saved notes</h2>
+          <span class="muted">Newest first.</span>
+        </div>
+        <div id="notesList" class="list"></div>
+        <p id="notesEmpty" class="empty">No notes yet. Capture a thought above.</p>
+      </section>
+    </main>
+  </div>
+
+  <script src="main.js"></script>
+  <script src="notes.js"></script>
+</body>
+</html>
