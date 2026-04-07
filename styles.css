@@ -124,7 +124,7 @@ body.is-leaving .page {
 .brand {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-weight: 800;
   letter-spacing: 0.6px;
   font-size: 20px;
