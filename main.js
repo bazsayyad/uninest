@@ -91,7 +91,6 @@
     document.body.dataset.theme = theme;
     write(THEME_KEY, theme);
     setGlowStyle(theme);
-    setLogoForTheme(theme);
   };
 
   const initTheme = () => {
@@ -105,15 +104,6 @@
         applyTheme(next);
         toggle.textContent = next === "dark" ? "Light mode" : "Dark mode";
       });
-    }
-  };
-
-  const setLogoForTheme = (theme) => {
-    const logo = document.getElementById("brandLogo");
-    if (!logo) return;
-    const target = theme === "dark" ? logo.dataset.light : logo.dataset.dark;
-    if (target && logo.src !== target) {
-      logo.src = target;
     }
   };
 
@@ -301,7 +291,6 @@
     initExport,
     initPageTransitions,
     initClickSound,
-    setLogoForTheme,
     initMailActions,
     initCopyActions,
   };

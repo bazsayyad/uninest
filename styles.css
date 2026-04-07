@@ -124,20 +124,10 @@ body.is-leaving .page {
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-}
-
-.brand-logo {
-  height: 46px;
-  width: auto;
-  border-radius: 12px;
-  padding: 3px 4px;
-  background: var(--card-strong);
-  border: 1px solid var(--border);
-  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25), 0 0 0 8px rgba(255, 255, 255, 0.02);
-  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.16));
+  gap: 10px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  font-size: 20px;
 }
 
 .nav-links {
@@ -345,6 +335,19 @@ button:active {
   font-weight: 700;
   letter-spacing: 0.2px;
   box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 640px) {
+  .support-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .support-actions .ghost,
+  .support-actions .email-display {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 /* Smooth component transitions */
